@@ -6,9 +6,11 @@ metadata:
     app: pulsar
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: pulsar
   template:
     metadata:
-      name: pulsar
       labels:
         app: pulsar
     spec:
@@ -26,9 +28,6 @@ spec:
       volumes:
         - name: datadir
           emptyDir: {}
-  selector:
-    matchLabels:
-      app: pulsar
 ---
 apiVersion: v1
 kind: Service
@@ -42,7 +41,6 @@ spec:
       targetPort: 8080
       name: http
     - port: 6650
-      name: another
       targetPort: 6650
+      name: another
   type: LoadBalancer
-
